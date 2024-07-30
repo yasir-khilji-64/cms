@@ -1,15 +1,15 @@
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from './database/database.module';
-import { RolesModule } from './roles/roles.module';
+import { Role, RoleSchema } from 'src/roles/schemas/role.schema';
+import { SeedService } from './seed.service';
+import { DatabaseModule } from './database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        PORT: Joi.number().default(3000),
-        NODE_ENV: Joi.string().valid('dev', 'test', 'prod').default('dev'),
         MONGO_HOST: Joi.string().required(),
         MONGO_USERNAME: Joi.string().required(),
         MONGO_PASSWORD: Joi.string().required(),
@@ -17,9 +17,8 @@ import { RolesModule } from './roles/roles.module';
       }),
     }),
     DatabaseModule,
-    RolesModule,
+    MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
   ],
-  controllers: [],
-  providers: [],
+  providers: [SeedService],
 })
-export class AppModule {}
+export class SeedModule {}
