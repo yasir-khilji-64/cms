@@ -24,7 +24,7 @@ export const users: DtoWithId<CreateUserDto>[] = [
     lastname: 'Doe',
     username: 'john.doe',
     email: 'john.doe@example.com',
-    password: 'SuperSecret123',
+    password: '$2a$12$P93zs9IrPWpYNCVVOuaJEucXXia91x5z6cl6FSz9yuA7xV2HiL92G',
     gender: true,
   },
 ];
