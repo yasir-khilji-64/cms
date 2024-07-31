@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Role, RoleSchema } from 'src/roles/schemas/role.schema';
 import { SeedService } from './seed.service';
 import { DatabaseModule } from './database.module';
+import { User, UserSchema } from 'src/users/schemas/user.schema';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { DatabaseModule } from './database.module';
     }),
     DatabaseModule,
     MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   providers: [SeedService],
 })

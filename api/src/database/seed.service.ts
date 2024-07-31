@@ -1,17 +1,21 @@
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
-import { roles } from './data.seed';
+import { User, UserDocument } from 'src/users/schemas/user.schema';
+import { users } from './data.seed';
 
 @Injectable()
 export class SeedService {
-  constructor(@InjectModel(Role.name) private roleModel: Model<RoleDocument>) {}
+  constructor(
+    @InjectModel(Role.name) private roleModel: Model<RoleDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+  ) {}
 
   async create() {
     try {
-      await this.roleModel.deleteMany({});
-      await this.roleModel.create(roles);
+      await this.userModel.deleteMany({});
+      await this.userModel.create(users);
     } catch (error) {
       console.error(error);
       throw error;
