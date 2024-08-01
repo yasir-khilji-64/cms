@@ -32,6 +32,10 @@ To start the development server, use the following command
 ```
 npm run start:dev
 ```
+To seed the development data, use the following command
+```
+npm run seed
+```
 
 # API Documentation
 
