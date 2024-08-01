@@ -1,4 +1,10 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'First name cannot be empty' })
@@ -23,4 +29,8 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Gender is required' })
   @IsBoolean({ message: 'Gender can only be true/false' })
   gender: boolean;
+
+  @IsOptional()
+  @IsString({ message: 'Provide a valid picture url' })
+  picture?: string;
 }

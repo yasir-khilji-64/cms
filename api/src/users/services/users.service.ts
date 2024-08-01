@@ -4,6 +4,7 @@ import { User, UserDocument } from '../schemas/user.schema';
 import { Model, PipelineStage, Types } from 'mongoose';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { FindUserDto } from '../dtos/find-user.dto';
+import { generateGravatarUrl } from 'src/utils/hash';
 
 @Injectable()
 export class UsersService {
@@ -63,6 +64,10 @@ export class UsersService {
   }
 
   async create(details: CreateUserDto): Promise<UserDocument> {
+    if (details['picture'] === undefined) {
+      const picture = generateGravatarUrl(details['email']);
+      details['picture'] = picture;
+    }
     const result = await this.userModel.create([details]);
     return result[0];
   }

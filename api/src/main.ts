@@ -11,18 +11,6 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const configService = app.get<ConfigService>(ConfigService);
     const port = configService.get('PORT');
-    const config = new DocumentBuilder()
-      .setTitle('CMS')
-      .setDescription(
-        'A comprehensive monorepo-based CMS for seamless content creation, management, and interaction.',
-      )
-      .setVersion('0.1')
-      .addBearerAuth()
-      .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/api/docs', app, document, {
-      jsonDocumentUrl: 'api/docs/json',
-    });
 
     app.use(helmet());
     app.useGlobalPipes(
@@ -35,6 +23,18 @@ async function bootstrap() {
         { path: 'auth/register', method: RequestMethod.POST },
         { path: 'auth/login', method: RequestMethod.POST },
       ],
+    });
+    const config = new DocumentBuilder()
+      .setTitle('CMS')
+      .setDescription(
+        'A comprehensive monorepo-based CMS for seamless content creation, management, and interaction.',
+      )
+      .setVersion('0.1')
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('/api/docs', app, document, {
+      jsonDocumentUrl: 'api/docs/json',
     });
     await app.listen(port, '0.0.0.0', async () => {
       logger.log(`Server listening on ${await app.getUrl()}`);

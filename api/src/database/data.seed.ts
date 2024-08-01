@@ -1,6 +1,9 @@
 import { Types } from 'mongoose';
+import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
 import { CreateRoleDto } from 'src/roles/dtos/create-role.dto';
+import { CreateTagDto } from 'src/tags/dtos/create-tag.dto';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
+import { generateGravatarUrl } from 'src/utils/hash';
 
 type DtoWithId<T> = T & { _id: Types.ObjectId };
 type DtoWithOptionalRole = CreateUserDto & {
@@ -29,6 +32,7 @@ export const users: DtoWithOptionalRole[] = [
     username: 'john.doe',
     email: 'john.doe@example.com',
     password: '$2a$12$P93zs9IrPWpYNCVVOuaJEucXXia91x5z6cl6FSz9yuA7xV2HiL92G',
+    picture: generateGravatarUrl('john.doe@example.com'),
     gender: true,
   },
   {
@@ -40,5 +44,23 @@ export const users: DtoWithOptionalRole[] = [
     password: '$2a$12$P93zs9IrPWpYNCVVOuaJEucXXia91x5z6cl6FSz9yuA7xV2HiL92G',
     gender: true,
     roles: [new Types.ObjectId('000000000000000000000001')],
+    picture: generateGravatarUrl('ivan.ivanov@example.com'),
+  },
+];
+
+export const tags: DtoWithId<CreateTagDto>[] = [
+  {
+    _id: new Types.ObjectId('000000000000000000000004'),
+    name: 'TypeScript',
+    active: true,
+  },
+];
+
+export const categories: DtoWithId<CreateCategoryDto>[] = [
+  {
+    _id: new Types.ObjectId('000000000000000000000004'),
+    name: 'TypeScript',
+    description: 'This category belongs to all TypeScript posts',
+    status: true,
   },
 ];

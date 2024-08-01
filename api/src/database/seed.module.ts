@@ -3,9 +3,14 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { Role, RoleSchema } from 'src/roles/schemas/role.schema';
+import { User, UserSchema } from 'src/users/schemas/user.schema';
+import { Tag, TagSchema } from 'src/tags/schemas/tag.schema';
 import { SeedService } from './seed.service';
 import { DatabaseModule } from './database.module';
-import { User, UserSchema } from 'src/users/schemas/user.schema';
+import {
+  Category,
+  CategorySchema,
+} from 'src/categories/schemas/category.schema';
 
 @Module({
   imports: [
@@ -20,6 +25,10 @@ import { User, UserSchema } from 'src/users/schemas/user.schema';
     DatabaseModule,
     MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Tag.name, schema: TagSchema }]),
+    MongooseModule.forFeature([
+      { name: Category.name, schema: CategorySchema },
+    ]),
   ],
   providers: [SeedService],
 })
