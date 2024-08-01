@@ -3,6 +3,10 @@ import { CreateRoleDto } from 'src/roles/dtos/create-role.dto';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 
 type DtoWithId<T> = T & { _id: Types.ObjectId };
+type DtoWithOptionalRole = CreateUserDto & {
+  _id: Types.ObjectId;
+  roles?: Types.ObjectId[];
+};
 
 export const roles: DtoWithId<CreateRoleDto>[] = [
   {
@@ -17,7 +21,7 @@ export const roles: DtoWithId<CreateRoleDto>[] = [
   },
 ];
 
-export const users: DtoWithId<CreateUserDto>[] = [
+export const users: DtoWithOptionalRole[] = [
   {
     _id: new Types.ObjectId('000000000000000000000002'),
     firstname: 'John',
@@ -26,5 +30,15 @@ export const users: DtoWithId<CreateUserDto>[] = [
     email: 'john.doe@example.com',
     password: '$2a$12$P93zs9IrPWpYNCVVOuaJEucXXia91x5z6cl6FSz9yuA7xV2HiL92G',
     gender: true,
+  },
+  {
+    _id: new Types.ObjectId('000000000000000000000003'),
+    firstname: 'Ivan',
+    lastname: 'Ivanov',
+    username: 'ivan.ivanov',
+    email: 'ivan.ivanov@example.com',
+    password: '$2a$12$P93zs9IrPWpYNCVVOuaJEucXXia91x5z6cl6FSz9yuA7xV2HiL92G',
+    gender: true,
+    roles: [new Types.ObjectId('000000000000000000000001')],
   },
 ];

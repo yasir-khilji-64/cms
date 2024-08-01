@@ -1,7 +1,7 @@
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -16,7 +16,8 @@ async function bootstrap() {
       .setDescription(
         'A comprehensive monorepo-based CMS for seamless content creation, management, and interaction.',
       )
-      .setVersion('0.0')
+      .setVersion('0.1')
+      .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/docs', app, document, {
@@ -29,6 +30,12 @@ async function bootstrap() {
         transform: true,
       }),
     );
+    app.setGlobalPrefix('/api/v1', {
+      exclude: [
+        { path: 'auth/register', method: RequestMethod.POST },
+        { path: 'auth/login', method: RequestMethod.POST },
+      ],
+    });
     await app.listen(port, '0.0.0.0', async () => {
       logger.log(`Server listening on ${await app.getUrl()}`);
     });

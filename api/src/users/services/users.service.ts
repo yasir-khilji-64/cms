@@ -59,7 +59,6 @@ export class UsersService {
       },
     ];
     const users = await this.userModel.aggregate<UserDocument>(query);
-    console.log(users);
     return users;
   }
 
