@@ -46,4 +46,4 @@ The project is organized into two primary folders:
 
 # Setup and Installation
 
-For detailed setup and installation instruction, please refer to the indiviual README files in the [API](./api/README.md) and [Client](./README.md) folders
+For detailed setup and installation instruction, please refer to the indiviual README files in the [API](./api/README.md) and [Client](./client/README.md) folders
