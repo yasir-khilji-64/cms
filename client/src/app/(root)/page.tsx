@@ -1,7 +1,6 @@
+'use client';
+
 export default function Home() {
-  return (
-    <main>
-      <h1>Hello, World</h1>
-    </main>
-  );
+  const username = localStorage.getItem('username');
+  return <main>{username && <h1>{username}</h1>}</main>;
 }

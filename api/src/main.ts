@@ -13,6 +13,7 @@ async function bootstrap() {
     const port = configService.get('PORT');
 
     app.use(helmet());
+    app.enableCors({ origin: '*' });
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
